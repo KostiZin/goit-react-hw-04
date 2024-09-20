@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { fetchImages } from "./services/api";
+import ImageGallery from "./components/ImageGallery/ImageGallery";
 
 // import "./App.css";
 
@@ -23,7 +24,17 @@ function App() {
   return (
     <div>
       <input type="text" />
-      <ul>
+      <ImageGallery images={images} />
+    </div>
+  );
+}
+
+export default App;
+
+// axios.get("https://api.unsplash.com/search/photos?page=1&query=cats&client_id=mS-dGrwvQX2GrdOFtnC-D27IiL42MVJH3DXgYTQJSww").then((res) => console.log(res.data));
+
+{
+  /* <ul>
         {images.map((item) => (
           <li key={item.id}>
             <h2>{item.description}</h2>
@@ -32,11 +43,5 @@ function App() {
             </a>
           </li>
         ))}
-      </ul>
-    </div>
-  );
+      </ul> */
 }
-
-export default App;
-
-// axios.get("https://api.unsplash.com/search/photos?page=1&query=cats&client_id=mS-dGrwvQX2GrdOFtnC-D27IiL42MVJH3DXgYTQJSww").then((res) => console.log(res.data));
