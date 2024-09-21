@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from "formik";
-import React from "react";
 import css from "./SearchBar.module.css";
+import { TbPhotoSearch } from "react-icons/tb";
 
 const SearchBar = ({ setQuery }) => {
   // return (
@@ -41,7 +41,7 @@ const SearchBar = ({ setQuery }) => {
             placeholder="Search images and photos"
           />
           <button className={css.btn} type="submit">
-            Submit
+            <TbPhotoSearch size="24" />
             {/* <span className={css.span}>Search</span> */}
           </button>
         </Form>

@@ -7,16 +7,19 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 
 import "./App.css";
+// import css from "../";
 
 function App() {
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [page, setPage] = useState(1);
-  const [query, setQuery] = useState("random");
+  const [query, setQuery] = useState("");
+  const [totalPage, setTotalPages] = useState(0);
   // const [isModal, setIsModal] = useState(false);
 
   useEffect(() => {
+    if (!query) return;
     const getImages = async () => {
       try {
         setIsError(false);
@@ -26,6 +29,7 @@ function App() {
         const data = await fetchImages(page, query);
 
         setImages((prev) => [...prev, ...data.results]);
+        setTotalPages(data.total_pages);
       } catch {
         setIsError(true);
       } finally {
@@ -56,7 +60,7 @@ function App() {
       {images.length > 0 && <ImageGallery images={images} />}
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
-      {images.length > 0 && <LoadMoreBtn addPage={handleChangePage} />}
+      {page < totalPage && <LoadMoreBtn addPage={handleChangePage} />}
     </div>
   );
 }
