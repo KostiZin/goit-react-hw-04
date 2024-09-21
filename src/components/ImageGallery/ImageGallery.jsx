@@ -1,15 +1,13 @@
-import React from "react";
 import ImageCard from "../ImageCard/ImageCard";
+import css from "./ImageGallery.module.css";
 
 const ImageGallery = ({ images }) => {
   return (
-    <ul>
+    <ul className={css.ul}>
       {images.map((item) => (
-        <ImageCard
-          key={item.id}
-          description={item.description}
-          url={item.urls.small}
-        />
+        <li key={item.id} className={css.li}>
+          <ImageCard description={item.description} url={item.urls.small} />
+        </li>
       ))}
     </ul>
   );

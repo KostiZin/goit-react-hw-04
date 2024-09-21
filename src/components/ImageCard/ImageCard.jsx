@@ -1,14 +1,12 @@
-import React from "react";
+import css from "./ImageCard.module.css";
 
-const ImageCard = ({ id, description, url }) => {
+const ImageCard = ({ description, url }) => {
   return (
     <>
-      <li key={id}>
-        <h2>{description}</h2>
-        <a href={url}>
-          <img src={url} width="50%" height="50%" />
-        </a>
-      </li>
+      <h2>{description}</h2>
+      <a href={url}>
+        <img className={css.img} src={url} width="50%" height="50%" />
+      </a>
     </>
   );
 };
