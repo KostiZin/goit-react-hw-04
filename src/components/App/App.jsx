@@ -59,16 +59,16 @@ function App() {
     setSelectedImage("");
   };
 
+  console.log(images);
+
   return (
     <div className={css.appWrapper}>
       <div className={css.formWrapper}>
         <SearchBar setQuery={handleSetQuery} />
       </div>
-      {images.length > 0 ? (
-        <ImageGallery images={images} openModal={openModal} />
-      ) : (
-        "Oops, there are no pictures "
-      )}
+
+      <ImageGallery images={images} openModal={openModal} />
+
       {modalIsOpen && (
         <ImageModal
           isOpen={modalIsOpen}
