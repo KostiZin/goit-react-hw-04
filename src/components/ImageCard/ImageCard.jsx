@@ -8,8 +8,8 @@ const ImageCard = ({ description, url }) => {
           className={css.img}
           alt={description}
           src={url}
-          width="50%"
-          height="50%"
+          width="100%"
+          height="100%"
         />
       </a>
     </>

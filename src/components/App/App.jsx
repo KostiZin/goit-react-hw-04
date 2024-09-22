@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
-import { fetchImages } from "./services/api";
-import ImageGallery from "./components/ImageGallery/ImageGallery";
-import Loader from "./components/Loader/Loader";
-import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
-import SearchBar from "./components/SearchBar/SearchBar";
-import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
-
-import "./App.css";
-// import css from "../";
+import React, { useEffect, useState } from "react";
+import { fetchImages } from "../../services/api";
+import ImageGallery from "../ImageGallery/ImageGallery";
+import Loader from "../Loader/Loader";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import SearchBar from "../SearchBar/SearchBar";
+import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
+import css from "./App.module.css";
+import ImageModal from "../ImageModal/ImageModal";
 
 function App() {
   const [images, setImages] = useState([]);
@@ -16,7 +15,9 @@ function App() {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
   const [totalPage, setTotalPages] = useState(0);
-  // const [isModal, setIsModal] = useState(false);
+  const [isModal, setIsModal] = React.useState(false);
+
+  let subtitle;
 
   useEffect(() => {
     if (!query) return;
@@ -54,10 +55,34 @@ function App() {
     setPage(1);
   };
 
+  // Modal
+
+  function openModal() {
+    setIsModal(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    subtitle.style.color = "#f00";
+  }
+
+  function closeModal() {
+    setIsModal(false);
+  }
+
   return (
-    <div className={CSS.container}>
+    <div className={css.container}>
       <SearchBar setQuery={handleSetQuery} />
       {images.length > 0 && <ImageGallery images={images} />}
+      {
+        <ImageModal
+          isOpen={isModal}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModal}
+          contentLabel="Example Modal"
+          subtitle={subtitle}
+        />
+      }
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
       {page < totalPage && <LoadMoreBtn addPage={handleChangePage} />}
@@ -66,5 +91,3 @@ function App() {
 }
 
 export default App;
-
-// axios.get("https://api.unsplash.com/search/photos?page=1&query=cats&client_id=mS-dGrwvQX2GrdOFtnC-D27IiL42MVJH3DXgYTQJSww").then((res) => console.log(res.data));
