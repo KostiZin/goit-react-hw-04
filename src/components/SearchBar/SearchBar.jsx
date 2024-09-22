@@ -18,7 +18,11 @@ const SearchBar = ({ setQuery }) => {
     <div>
       <Toaster position="top-right" reverseOrder={false} />
 
-      <Formik initialValues={initialValue} onSubmit={handleSubmit}>
+      <Formik
+        initialValues={initialValue}
+        onSubmit={handleSubmit}
+        className={css.formWrapper}
+      >
         <Form className={css.form}>
           <Field
             className={css.input}
@@ -28,6 +32,7 @@ const SearchBar = ({ setQuery }) => {
             autoFocus
             placeholder="Search images and photos"
           />
+
           <button className={css.btn} type="submit">
             <TbPhotoSearch size="24" />
           </button>

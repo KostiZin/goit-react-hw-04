@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchImages } from "../../services/api";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import Loader from "../Loader/Loader";
@@ -15,9 +15,8 @@ function App() {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
   const [totalPage, setTotalPages] = useState(0);
-  const [isModal, setIsModal] = React.useState(false);
-
-  let subtitle;
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
 
   useEffect(() => {
     if (!query) return;
@@ -34,20 +33,15 @@ function App() {
       } catch {
         setIsError(true);
       } finally {
-        //after loading we need to disable loading
         setIsLoading(false);
       }
     };
     getImages();
   }, [page, query]);
 
-  // We are setting the pages
-
   const handleChangePage = () => {
     setPage((prev) => prev + 1);
   };
-
-  //Search Bar
 
   const handleSetQuery = (searchValue) => {
     setQuery(searchValue);
@@ -55,34 +49,34 @@ function App() {
     setPage(1);
   };
 
-  // Modal
+  const openModal = (imageSource) => {
+    setSelectedImage(imageSource);
+    setModalIsOpen(true);
+  };
 
-  function openModal() {
-    setIsModal(true);
-  }
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    subtitle.style.color = "#f00";
-  }
-
-  function closeModal() {
-    setIsModal(false);
-  }
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setSelectedImage("");
+  };
 
   return (
-    <div className={css.container}>
-      <SearchBar setQuery={handleSetQuery} />
-      {images.length > 0 && <ImageGallery images={images} />}
-      {
+    <div className={css.appWrapper}>
+      <div className={css.formWrapper}>
+        <SearchBar setQuery={handleSetQuery} />
+      </div>
+      {images.length > 0 ? (
+        <ImageGallery images={images} openModal={openModal} />
+      ) : (
+        "Oops, there are no pictures "
+      )}
+      {modalIsOpen && (
         <ImageModal
-          isOpen={isModal}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal}
-          contentLabel="Example Modal"
-          subtitle={subtitle}
+          isOpen={modalIsOpen}
+          closeModal={closeModal}
+          selectedImage={selectedImage}
         />
-      }
+      )}
+
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
       {page < totalPage && <LoadMoreBtn addPage={handleChangePage} />}
