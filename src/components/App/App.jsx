@@ -84,6 +84,7 @@ function App() {
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
       {isError ||
+        isLoading ||
         images.length === 0 ||
         (page < totalPage && <LoadMoreBtn addPage={handleChangePage} />)}
     </div>
