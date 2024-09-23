@@ -6,7 +6,7 @@ Modal.setAppElement("#root");
 const ImageModal = ({ isOpen, closeModal, selectedImage }) => {
   if (!selectedImage) return null;
 
-  const { urls, alt_description } = selectedImage;
+  const { urls, alt_description, likes, user } = selectedImage;
 
   return (
     <Modal
@@ -25,6 +25,12 @@ const ImageModal = ({ isOpen, closeModal, selectedImage }) => {
             className={css.image}
           />
         )}
+        <div className={css.dataWrapper}>
+          <p>
+            Author:&nbsp;{user.name}.&nbsp;{user.location}
+          </p>
+          <p>{likes} 😍 </p>
+        </div>
       </div>
     </Modal>
   );

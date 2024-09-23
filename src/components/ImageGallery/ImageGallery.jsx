@@ -4,16 +4,15 @@ import css from "./ImageGallery.module.css";
 const ImageGallery = ({ images, openModal }) => {
   return (
     <ul className={css.ul}>
-      {images.length > 0 &&
-        images.map((item) => (
-          <li key={item.id} className={css.li}>
-            <ImageCard
-              description={item.alt_description}
-              urlSmall={item.urls.small}
-              openModal={() => openModal(item)}
-            />
-          </li>
-        ))}
+      {images.map((item) => (
+        <li key={item.id} className={css.li}>
+          <ImageCard
+            description={item.alt_description}
+            urlSmall={item.urls.small}
+            openModal={() => openModal(item)}
+          />
+        </li>
+      ))}
     </ul>
   );
 };
