@@ -18,12 +18,7 @@ const ImageModal = ({ isOpen, closeModal, selectedImage }) => {
     >
       <div className={css.imageWrapper}>
         {selectedImage && (
-          <img
-            src={urls.regular}
-            alt={alt_description}
-            style={{ maxWidth: "100%", maxHeight: "100%" }}
-            className={css.image}
-          />
+          <img src={urls.regular} alt={alt_description} className={css.image} />
         )}
         <div className={css.dataWrapper}>
           <p>
