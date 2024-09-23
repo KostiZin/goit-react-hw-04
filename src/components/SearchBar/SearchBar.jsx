@@ -21,7 +21,7 @@ const SearchBar = ({ setQuery }) => {
       <Formik
         initialValues={initialValue}
         onSubmit={handleSubmit}
-        className={css.formWrapper}
+        // className={css.formWrapper}
       >
         <Form className={css.form}>
           <Field

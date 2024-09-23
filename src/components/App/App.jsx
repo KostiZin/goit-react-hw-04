@@ -44,6 +44,10 @@ function App() {
   };
 
   const handleSetQuery = (searchValue) => {
+    if (query === searchValue) {
+      return;
+    }
+
     setQuery(searchValue);
     setImages([]);
     setPage(1);
@@ -59,15 +63,15 @@ function App() {
     setSelectedImage("");
   };
 
-  console.log(images);
-
   return (
     <div className={css.appWrapper}>
       <div className={css.formWrapper}>
         <SearchBar setQuery={handleSetQuery} />
       </div>
 
-      <ImageGallery images={images} openModal={openModal} />
+      {images.length > 0 && (
+        <ImageGallery images={images} openModal={openModal} />
+      )}
 
       {modalIsOpen && (
         <ImageModal
@@ -79,7 +83,9 @@ function App() {
 
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
-      {page < totalPage && <LoadMoreBtn addPage={handleChangePage} />}
+      {isError ||
+        images.length === 0 ||
+        (page < totalPage && <LoadMoreBtn addPage={handleChangePage} />)}
     </div>
   );
 }
